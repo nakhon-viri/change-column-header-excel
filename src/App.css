@@ -1,9 +1,10 @@
 .App {
-  text-align: center;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 40px 20px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .btn-container {
@@ -142,4 +143,33 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+.upload-container {
+  display: block;
+  font-size: 24px;
+  color: #9b9b9b;
+  text-align: center;
+}
+
+.input-import {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.export-container {
+  position: absolute;
+  top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  display: flex;
+  gap: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  align-items: center;
 }

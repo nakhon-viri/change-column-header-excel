@@ -1,10 +1,9 @@
 import { useState } from "react";
 import * as XLSX from "xlsx";
 import './App.css';
-
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import moment from "moment";
 import { categories } from './categories'
+import UploadPng from "./assets/upload.jpg";
 
 function App() {
 
@@ -135,20 +134,9 @@ function App() {
         // XLSX.writeFile(wb, 'filename.xlsx');
     }
 
-    function handleOnDragEnd(result) {
-        console.log('result', result)
-        if (!result.destination) return;
-
-        const items = Array.from(header);
-        const [reorderedItem] = items.splice(result.source.index, 1);
-        items.splice(result.destination.index, 0, reorderedItem);
-        console.log('items', items)
-        setHeader(items);
-    }
-
     return (
         <div className="App">
-            <div className="btn-container">
+            {/* <div className="btn-container">
                 {data.length && header.length ? <button className="export-btn" onClick={exprotExcel}>export</button> : null}
                 <div className="import-btn">
                     <div>Import excel (.xlsx)</div>
@@ -162,38 +150,25 @@ function App() {
                 <div>
                     {fileName}
                 </div>
+            </div> */}
+            <div className="upload-container">
+                <input
+                    className="input-import"
+                    type="file"
+                    accept=".xlsx, .xls"
+                    onChange={handleFileUpload}
+                />
+                <img src={UploadPng} style={{ height: 500, width: 'auto' }} alt="" />
+                <div className="label-upload">Upload your excel (.xlsx).</div>
             </div>
-            {data.length && header.length ? <div className="divider">
-                <div className="divider-line"></div>
-                <div className="divider-label">
-                    Edit order column table
-                </div>
-            </div> : null}
-            {data.length && header.length ? <div className="col-header">
-                Column header
-            </div> : null}
-            <DragDropContext onDragEnd={handleOnDragEnd}>
-                <Droppable droppableId="characters">
-                    {(provided) => (
-                        <ul className="characters" {...provided.droppableProps} ref={provided.innerRef}>
-                            {header.map((headerColumn, index) => {
-                                return (
-                                    <Draggable key={headerColumn} draggableId={headerColumn} index={index}>
-                                        {(provided) => (
-                                            <li ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <p>
-                                                    {headerColumn}
-                                                </p>
-                                            </li>
-                                        )}
-                                    </Draggable>
-                                );
-                            })}
-                            {provided.placeholder}
-                        </ul>
-                    )}
-                </Droppable>
-            </DragDropContext>
+            {data.length && header.length ?
+                <div className="export-container">
+                    <button className="export-btn" onClick={exprotExcel}>export</button>
+                    <div>
+                        {fileName}
+                    </div>
+                </div> : null
+            }
         </div >
     );
 }
